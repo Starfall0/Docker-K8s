@@ -27,6 +27,8 @@ spec:
               mountPath: /web
         - name: nginx
           image: nginx:latest
+          ports:
+          - containerPort: 80
           volumeMounts:
             - name: web-content
               mountPath: /usr/share/nginx/html
