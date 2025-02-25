@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-git-sync
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-git-sync
+  template:
+    metadata:
+      labels:
+        app: nginx-git-sync
+    spec:
+      volumes:
+        - name: web-content
+          emptyDir: {}
+      containers:
+        - name: git-sync
+          image: k8s.gcr.io/git-sync:v3.1.6
+          args:
+            - "--repo=https://github.com/Starfall0/Docker-K8s.git"
+            - "--branch=main"
+            - "--wait=10"
+          volumeMounts:
+            - name: web-content
+              mountPath: /web
+        - name: nginx
+          image: nginx:latest
+          volumeMounts:
+            - name: web-content
+              mountPath: /usr/share/nginx/html
+              subPath: Docker-K8s/www/src/

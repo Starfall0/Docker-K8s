@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: me-svc
+  labels:
+    app: about-me
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    nodePort: 30001
+    protocol: TCP
+  selector:
+    app: about-me
