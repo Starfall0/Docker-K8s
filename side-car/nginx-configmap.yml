@@ -32,5 +32,8 @@ data:
               root   /usr/share/nginx/html/html/www/src;
               index  index.html index.htm;
           }
+          location /images/ {
+              autoindex on;
+          }
       }
     }
