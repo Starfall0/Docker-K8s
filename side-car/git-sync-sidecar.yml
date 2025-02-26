@@ -15,9 +15,13 @@ spec:
       volumes:
         - name: web-content
           emptyDir: {}
+        - name: nginx-config
+          configMap:
+            name: nginx-config  # use the configmap
+
       containers:
         - name: git-sync
-          image: k8s.gcr.io/git-sync:v4.4.0
+          image: k8s.gcr.io/git-sync:v3.1.6
           args:
             - "--repo=https://github.com/Starfall0/Docker-K8s.git"
             - "--branch=main"
@@ -27,11 +31,14 @@ spec:
           volumeMounts:
             - name: web-content
               mountPath: /web
+
         - name: nginx
-          image: nginx:latest
+          image: nginx:alpine
           ports:
           - containerPort: 80
           volumeMounts:
             - name: web-content
-              mountPath: /usr/share/nginx/html
-              subPath: html
+              mountPath: /usr/share/nginx/html  # Mount the repo
+            - name: nginx-config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
