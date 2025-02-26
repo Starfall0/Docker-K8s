@@ -29,8 +29,8 @@ data:
           listen       80;
           server_name  _;
 
-          root /usr/share/nginx/html/html/www/src;
-          index  index.html index.htm;
+          root /usr/share/nginx/html/html/www;
+          index src/index.html index.htm;
 
           location / {
               try_files $uri $uri/ =404;
