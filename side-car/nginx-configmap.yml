@@ -30,7 +30,6 @@ data:
           server_name  _;
 
           root /usr/share/nginx/html/html/www;
-          index src/index.html index.htm style.css;
 
           location / {
               try_files $uri $uri/ =404;
@@ -38,6 +37,7 @@ data:
 
           location /src/ {
               alias /usr/share/nginx/html/html/www/src/;
+              index index.html index.htm;
           }
 
           location /images/ {
