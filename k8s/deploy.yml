@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: about-me-pod
-        image: starfall0/docker-k8s:v1
+        image: starfall0/docker-k8s:v2
         ports:
         - containerPort: 80
         resources:
